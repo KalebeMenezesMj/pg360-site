@@ -13,7 +13,7 @@ O visitante pode acessar informações sobre:
 🧭 Sugestões de roteiros personalizados
 
 ---
-## 🛠️ Tecnologias Utilizadas
+🛠️ Tecnologias Utilizadas
 Front-end
 React — Criação de interfaces modernas e dinâmicas
 TailwindCSS — Estilização responsiva e eficiente
