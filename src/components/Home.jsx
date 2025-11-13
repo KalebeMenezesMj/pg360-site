@@ -1,7 +1,9 @@
+/** biome-ignore-all lint/correctness/useUniqueElementIds: <explanation> */
 import imagemDeFundo from '../assets/por_do_sol_pg.jpg';
 import ScrollArrow from './ScrollArrow';
 import Navbar from './Navbar';
 import Carrossel from './Carrossel';
+import FormsFeedBack from './FormsFeedBack';
 
 function Home(){
     return(
@@ -32,6 +34,10 @@ function Home(){
 
             <div id="secao-carrossel">
                 <Carrossel/>
+            </div>
+
+            <div id='secao-formalario'>
+                <FormsFeedBack/>
             </div>
         </>
         
