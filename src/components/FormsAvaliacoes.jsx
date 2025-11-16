@@ -5,62 +5,47 @@ import {useForm} from 'react-hook-form'
 function FormsAvaliacoes(){
 
     
-    const API_URL = 'http://localhost:8080/avaliacoes'; 
+   const API_URL = 'http://localhost:8080/avaliacoes'; 
     const { register, handleSubmit, reset } = useForm();
 
     const onSubmit = async (formData) => {
-        // Mapeando os dados do formulário (React) para o objeto Avaliacao (Spring Boot)
+        
+       
         const payload = {
-            // Assumimos que a 'mensagem' do formulário é o 'dsAvaliacao' na API
-            dsAvaliacao: formData.mensagem,
-            
-            // Adicionando um valor de 'nota'. Seu formulário precisa deste campo.
-            // Para testar, estamos definindo uma nota padrão, mas você deve
-            // adicionar um campo de input/select para nota no seu JSX.
-            nota: 5, // Exemplo: Nota 5/5
-            
-            // Se o usuário/local/evento forem obrigatórios, você deve obtê-los
-            // no formulário. Para esta demonstração, vamos ignorar os objetos FK 
-            // e confiar na lógica de 'null check' do seu Controller.
-            // Para passar os IDs, seria algo como:
-            // usuario: { cdUsuario: 1 }, 
-            // local: { cdLocal: 1 } 
-            
-            // Você pode querer salvar nome/email em uma lógica separada para Usuario,
-            // ou incluí-los no dsAvaliacao se não quiser mapear a FK por agora.
+            nmPessoa: formData.nome,       // Mapeia 'nome' do formulário para 'nmPessoa'
+            emailPessoa: formData.email,   // Mapeia 'email' do formulário para 'emailPessoa'
+            dsAvaliacao: formData.mensagem, // Mapeia 'mensagem' do formulário para 'dsAvaliacao'
+            // A data (dtAvaliacao) é gerada automaticamente no backend (LocalDate.now()),
+            // então não precisamos enviá-la.
         };
         
         console.log("Payload enviado para API:", payload);
 
-        // 1. **Verificação de CORS:** Se o seu React estiver rodando em http://localhost:3030,
-        // o @CrossOrigin(origins = "http://localhost:3030") no seu Controller funcionará.
-        
         try {
             const response = await fetch(API_URL, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(payload), // Usamos o objeto 'payload' mapeado
+                body: JSON.stringify(payload),
             });
 
             if (response.ok) {
                 const responseData = await response.json();
                 console.log("Avaliação criada com sucesso:", responseData);
-                alert(`Obrigado pelo feedback, ${formData.nome}! Sua avaliação (ID: ${responseData.id || 'sem ID'} ) foi enviada.`);
-                reset();
+                alert(`Obrigado pelo feedback, ${formData.nome}! Sua avaliação (ID: ${responseData.cdAvaliacao || 'sem ID'} ) foi enviada.`);
+                reset(); 
             } else {
                 const errorText = await response.text();
                 console.error("Erro na resposta da API:", response.status, errorText);
-                alert(`Erro ao enviar feedback (${response.status}): ${errorText}`);
+                alert(`Erro ao enviar feedback (${response.status}): Verifique se o backend está rodando e a porta está correta.`);
             }
 
         } catch (error) {
             console.error("Erro ao conectar com a API:", error);
             alert("Erro de rede: Não foi possível conectar com o servidor. Verifique se o Spring Boot está rodando.");
         }
-    
-    }
+    }    
    
     return(
         <div className='flex justify-center items-center min-h-screen bg-gray-100 p-4'>'
