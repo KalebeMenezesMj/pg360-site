@@ -1,6 +1,7 @@
 import Navbar from "./Navbar";
 import React from "react";
 import {APIProvider, Map, Marker } from '@vis.gl/react-google-maps';
+import Footer from "./Footer";
 
 const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 const MAP_ID = import.meta.env.VITE_GOOGLE_MAPS_MAP_ID;
@@ -52,6 +53,7 @@ function AtracoesPasseios() {
           </Map>
         </div>
       </APIProvider>
+      <Footer/>   
     </div>
   );
 }
