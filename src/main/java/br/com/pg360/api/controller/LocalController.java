@@ -2,7 +2,12 @@ package br.com.pg360.api.controller;
 
 import br.com.pg360.api.model.Local;
 import br.com.pg360.api.repository.LocalRepository;
-import br.com.pg360.api.repository.CategoriaRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,41 +17,42 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/locais")
+@Tag(name = "Locais", description = "Endpoints para gerenciamento de locais turísticos")
 public class LocalController {
 
     @Autowired
-    private LocalRepository localRepository;
+    private LocalRepository repository;
 
-    @Autowired
-    private CategoriaRepository categoriaRepository;
-
-    // criar
+    @Operation(
+            summary = "Criar novo local",
+            description = "Registra um novo local associado a uma categoria existente.",
+            requestBody = @RequestBody(
+                    required = true,
+                    content = @Content(schema = @Schema(implementation = Local.class))
+            )
+    )
     @PostMapping
     public ResponseEntity<Local> criar(@RequestBody Local local) {
-        if (local.getCategoria() != null && local.getCategoria().getCdCategoria() != null) {
-            categoriaRepository.findById(local.getCategoria().getCdCategoria())
-                    .ifPresent(local::setCategoria);
-        }
-        return ResponseEntity.status(201).body(localRepository.save(local));
+        return ResponseEntity.status(201).body(repository.save(local));
     }
 
-    // listar tudo
+    @Operation(summary = "Listar todos os locais")
     @GetMapping
     public List<Local> listarTodos() {
-        return localRepository.findAll();
+        return repository.findAll();
     }
 
-    // listar id
+    @Operation(summary = "Buscar local por ID")
     @GetMapping("/{id}")
     public ResponseEntity<Local> buscarPorId(@PathVariable Long id) {
-        Optional<Local> local = localRepository.findById(id);
+        Optional<Local> local = repository.findById(id);
         return local.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // atualizar
+    @Operation(summary = "Atualizar local existente")
     @PutMapping("/{id}")
     public ResponseEntity<Local> atualizar(@PathVariable Long id, @RequestBody Local novo) {
-        return localRepository.findById(id)
+        return repository.findById(id)
                 .map(l -> {
                     l.setNmLocal(novo.getNmLocal());
                     l.setDsLocal(novo.getDsLocal());
@@ -55,16 +61,16 @@ public class LocalController {
                     l.setLongitude(novo.getLongitude());
                     l.setHrFuncionamento(novo.getHrFuncionamento());
                     l.setCategoria(novo.getCategoria());
-                    return ResponseEntity.ok(localRepository.save(l));
+                    return ResponseEntity.ok(repository.save(l));
                 })
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // delete
+    @Operation(summary = "Deletar local")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
-        if (localRepository.existsById(id)) {
-            localRepository.deleteById(id);
+        if (repository.existsById(id)) {
+            repository.deleteById(id);
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.notFound().build();
