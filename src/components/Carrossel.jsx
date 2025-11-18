@@ -5,9 +5,9 @@ import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 const atracoes = [
   {
     id: 1,
-    titulo: 'Estátua de Netuno',
-    descricao: 'Um ícone da cidade na praia do Boqueirão.',
-    imgUrl: 'https://placehold.co/600x400/1D91CE/FAEDCD?text=Estátua+de+Netuno'
+    titulo: 'Estação Verão 2025',
+    descricao: 'O maior evento de verão da Baixada Santista.',
+    imgUrl: 'https://turismo.praiagrande.sp.gov.br/wp-content/uploads/2021/05/MGC_0074.jpg'
   },
   {
     id: 2,
@@ -31,10 +31,7 @@ const atracoes = [
 
 function Carrossel() {
   return (
-    <div className="bg-white p-8 md:p-20">
-      <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">
-        Principais Atrações
-      </h2>
+    <div className="bg-white p-8 md:p-2">
 
       <div className="max-w-4xl mx-auto">
         <Swiper
