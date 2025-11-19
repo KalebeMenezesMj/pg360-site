@@ -22,6 +22,7 @@ import java.util.Optional;
         name = "Avaliações do Site",
         description = "Endpoints para criação, consulta, atualização e exclusão de avaliações do site."
 )
+@CrossOrigin("http://localhost:5173")
 public class FeedbackSiteController {
 
     @Autowired

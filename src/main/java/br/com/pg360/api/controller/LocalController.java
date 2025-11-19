@@ -18,7 +18,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/locais")
 @Tag(name = "Locais", description = "Endpoints para gerenciamento de locais turísticos")
-//@CrossOrigin("http://localhost:5173")
+@CrossOrigin("http://localhost:5173")
 
 public class LocalController {
 
