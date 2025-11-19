@@ -5,7 +5,6 @@ import br.com.pg360.api.repository.CategoriaRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +17,6 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/categorias")
 @Tag(name = "Categorias", description = "Endpoints para gerenciamento de categorias")
-@CrossOrigin("http://localhost:5173")
-
 public class CategoriaController {
 
     @Autowired
@@ -28,7 +25,7 @@ public class CategoriaController {
     @Operation(
             summary = "Criar nova categoria",
             description = "Adiciona uma nova categoria ao sistema.",
-            requestBody = @RequestBody(
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
                     required = true,
                     content = @Content(schema = @Schema(implementation = Categoria.class))
             )

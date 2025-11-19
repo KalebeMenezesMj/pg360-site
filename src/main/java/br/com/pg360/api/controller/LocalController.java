@@ -5,7 +5,7 @@ import br.com.pg360.api.repository.LocalRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+// import io.swagger.v3.oas.annotations.parameters.RequestBody; // ESTE IMPORT FOI REMOVIDO
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/locais")
 @Tag(name = "Locais", description = "Endpoints para gerenciamento de locais turísticos")
-@CrossOrigin("http://localhost:5173")
+//@CrossOrigin("http://localhost:5173")
 
 public class LocalController {
 
@@ -28,13 +28,13 @@ public class LocalController {
     @Operation(
             summary = "Criar novo local",
             description = "Registra um novo local associado a uma categoria existente.",
-            requestBody = @RequestBody(
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody( // CORREÇÃO APLICADA AQUI
                     required = true,
                     content = @Content(schema = @Schema(implementation = Local.class))
             )
     )
     @PostMapping
-    public ResponseEntity<Local> criar(@RequestBody Local local) {
+    public ResponseEntity<Local> criar(@RequestBody Local local) { // @RequestBody do Spring
         return ResponseEntity.status(201).body(repository.save(local));
     }
 

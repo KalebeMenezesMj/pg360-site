@@ -1,5 +1,6 @@
 package br.com.pg360.api.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 @Entity
@@ -11,13 +12,13 @@ public class Categoria {
     private Long cdCategoria;
 
     @Column(nullable = false)
+    @JsonProperty("nmCategoria")
     private String nmCategoria;
 
+    @JsonProperty("dsCategoria")
+    private String dsCategoria;
 
-    private  String dsCategoria;
-
-    public Categoria() {
-    }
+    public Categoria() {}
 
     public Categoria(Long cdCategoria, String nmCategoria, String dsCategoria) {
         this.cdCategoria = cdCategoria;
