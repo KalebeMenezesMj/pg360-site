@@ -118,9 +118,7 @@ function Home() {
 
             <section id="secao-formulario" className="w-full bg-gray-100 py-12">
                 <div className="container mx-auto px-4">
-                    <h3 className="text-center text-2xl md:text-3xl font-bold text-blue-800 mb-8">
-                        Deixe sua Avaliação
-                    </h3>
+                   
                     <FormsAvaliacoes/>
                 </div>
             </section>

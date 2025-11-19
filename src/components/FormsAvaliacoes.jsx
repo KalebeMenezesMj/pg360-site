@@ -1,3 +1,5 @@
+/** biome-ignore-all lint/correctness/useUniqueElementIds: <explanation> */
+/** biome-ignore-all lint/a11y/useButtonType: <explanation> */
 import React, { useState, useEffect } from "react";
 import { useForm } from 'react-hook-form';
 
@@ -22,7 +24,7 @@ function Notification({ message, type, onClose }) {
 }
 
 function FormsAvaliacoes() {
-    const API_URL = 'http://localhost:8080/avaliacoes';
+    const API_URL = 'http://localhost:8080/feedback';
     const { register, handleSubmit, reset } = useForm();
     
     const [notification, setNotification] = useState({
@@ -105,7 +107,7 @@ function FormsAvaliacoes() {
 
             <form onSubmit={handleSubmit(onSubmit)} className="bg-white p-8 rounded-xl shadow-2xl w-full max-w-md space-y-6 border border-gray-200">
 
-                <h2 className="text-3xl font-bold text-center text-gray-800">Envie seu Feedback</h2>
+                <h3 className="text-center text-2xl md:text-3xl font-bold text-blue-800 mb-8">Deixe sua Avaliação</h3>
 
                 <div>
                     <label htmlFor="nome" className="block text-sm font-medium text-gray-700 mb-1">Digite seu Nome</label><br />
