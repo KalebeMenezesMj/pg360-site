@@ -3,6 +3,7 @@ package br.com.pg360.api.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "evento")
@@ -27,10 +28,16 @@ public class Evento {
     @JoinColumn(name = "cd_categoria")
     private Categoria categoria;
 
+    @ElementCollection
+    @CollectionTable(name = "evento_imagens", joinColumns = @JoinColumn(name = "cd_evento"))
+    @Column(name = "img_url")
+    private List<String> imagens;
+
+
     public Evento() {
     }
 
-    public Evento(Long cdEvento, String nmEvento, String dsEvento, LocalDate dtInicioEvento, LocalDate dtFimEvento, Local local, Categoria categoria) {
+    public Evento(Long cdEvento, String nmEvento, String dsEvento, LocalDate dtInicioEvento, LocalDate dtFimEvento, Local local, Categoria categoria, List<String> imagens) {
         this.cdEvento = cdEvento;
         this.nmEvento = nmEvento;
         this.dsEvento = dsEvento;
@@ -38,6 +45,7 @@ public class Evento {
         this.dtFimEvento = dtFimEvento;
         this.local = local;
         this.categoria = categoria;
+        this.imagens = imagens;
     }
 
     public Long getCdEvento() {
@@ -96,6 +104,14 @@ public class Evento {
         this.categoria = categoria;
     }
 
+    public List<String> getImagens() {
+        return imagens;
+    }
+
+    public void setImagens(List<String> imagens) {
+        this.imagens = imagens;
+    }
+
     @Override
     public String toString() {
         return "Evento{" +
@@ -106,6 +122,7 @@ public class Evento {
                 ", dtFimEvento=" + dtFimEvento +
                 ", local=" + local +
                 ", categoria=" + categoria +
+                ", imagens=" + imagens +
                 '}';
     }
 }

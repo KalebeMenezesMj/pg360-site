@@ -2,6 +2,9 @@ package br.com.pg360.api.model;
 
 import jakarta.persistence.*;
 
+import java.awt.*;
+import java.util.List;
+
 @Entity
 @Table(name = "local")
 public class Local {
@@ -24,10 +27,16 @@ public class Local {
     @JoinColumn(name = "cd_categoria")
     private Categoria categoria;
 
+    @ElementCollection
+    @CollectionTable(name = "local_imagens", joinColumns = @JoinColumn(name = "cd_local"))
+    @Column(name = "img_url")
+    private List<String> imagens;
+
+
     public Local() {
     }
 
-    public Local(Long cdLocal, String nmLocal, String dsLocal, String endereco, String latitude, String longitude, String hrFuncionamento, Categoria categoria) {
+    public Local(Long cdLocal, String nmLocal, String dsLocal, String endereco, String latitude, String longitude, String hrFuncionamento, Categoria categoria, List<String> imagens) {
         this.cdLocal = cdLocal;
         this.nmLocal = nmLocal;
         this.dsLocal = dsLocal;
@@ -36,6 +45,7 @@ public class Local {
         this.longitude = longitude;
         this.hrFuncionamento = hrFuncionamento;
         this.categoria = categoria;
+        this.imagens = imagens;
     }
 
     public Long getCdLocal() {
@@ -102,6 +112,14 @@ public class Local {
         this.categoria = categoria;
     }
 
+    public List<String> getImagens() {
+        return imagens;
+    }
+
+    public void setImagens(List<String> imagens) {
+        this.imagens = imagens;
+    }
+
     @Override
     public String toString() {
         return "Local{" +
@@ -113,6 +131,7 @@ public class Local {
                 ", longitude='" + longitude + '\'' +
                 ", hrFuncionamento='" + hrFuncionamento + '\'' +
                 ", categoria=" + categoria +
+                ", imagens=" + imagens +
                 '}';
     }
 }

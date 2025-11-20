@@ -51,11 +51,9 @@ public class EventoController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @Operation(summary = "Atualizar evento existente")
     @PutMapping("/{id}")
-    public ResponseEntity<Evento> atualizar(
-            @PathVariable Long id,
-            @RequestBody Evento novo
-    ) {
+    public ResponseEntity<Evento> atualizar(@PathVariable Long id, @RequestBody Evento novo) {
         return repository.findById(id)
                 .map(e -> {
                     e.setNmEvento(novo.getNmEvento());
@@ -64,6 +62,7 @@ public class EventoController {
                     e.setDtFimEvento(novo.getDtFimEvento());
                     e.setLocal(novo.getLocal());
                     e.setCategoria(novo.getCategoria());
+                    e.setImagens(novo.getImagens());
                     return ResponseEntity.ok(repository.save(e));
                 })
                 .orElseGet(() -> ResponseEntity.notFound().build());
@@ -88,4 +87,51 @@ public class EventoController {
         if (eventos.isEmpty()) return ResponseEntity.noContent().build();
         return ResponseEntity.ok(eventos);
     }
+
+    @PatchMapping("/{id}/imagens")
+    @Operation(
+            summary = "Adicionar novas imagens ao evento",
+            description = "Adiciona novas URLs de imagem à lista existente do evento."
+    )
+    public ResponseEntity<Evento> adicionarImagens(
+            @PathVariable Long id,
+            @RequestBody List<String> novasImagens) {
+
+        return repository.findById(id)
+                .map(evento -> {
+                    List<String> imagensAtuais = evento.getImagens();
+                    if (imagensAtuais == null) {
+                        imagensAtuais = novasImagens;
+                    } else {
+                        imagensAtuais.addAll(novasImagens);
+                    }
+
+                    evento.setImagens(imagensAtuais);
+                    return ResponseEntity.ok(repository.save(evento));
+                })
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+
+    @Operation(
+            summary = "Listar imagens do evento",
+            description = "Retorna apenas as URLs das imagens associadas ao evento."
+    )
+    @GetMapping("/{id}/imagens")
+    public ResponseEntity<List<String>> listarImagens(@PathVariable Long id) {
+        return repository.findById(id)
+                .<ResponseEntity<List<String>>>map(evento -> {
+                    List<String> imagens = evento.getImagens();
+
+                    if (imagens == null || imagens.isEmpty()) {
+                        return ResponseEntity.noContent().build();
+                    }
+
+                    return ResponseEntity.ok(imagens);
+                })
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+
+
 }

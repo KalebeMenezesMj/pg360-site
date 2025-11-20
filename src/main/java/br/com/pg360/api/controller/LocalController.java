@@ -63,10 +63,12 @@ public class LocalController {
                     l.setLongitude(novo.getLongitude());
                     l.setHrFuncionamento(novo.getHrFuncionamento());
                     l.setCategoria(novo.getCategoria());
+                    l.setImagens(novo.getImagens());
                     return ResponseEntity.ok(repository.save(l));
                 })
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
+
 
     @Operation(summary = "Deletar local")
     @DeleteMapping("/{id}")
@@ -77,4 +79,54 @@ public class LocalController {
         }
         return ResponseEntity.notFound().build();
     }
+
+    @PatchMapping("/{id}/imagens")
+    @Operation(
+            summary = "Adicionar novas imagens ao local",
+            description = "Adiciona novas URLs de imagem à lista existente do local."
+    )
+    public ResponseEntity<Local> adicionarImagens(
+            @PathVariable Long id,
+            @RequestBody List<String> novasImagens) {
+
+        return repository.findById(id)
+                .map(local -> {
+                    List<String> imagensAtuais = local.getImagens();
+                    if (imagensAtuais == null) {
+                        imagensAtuais = novasImagens;
+                    } else {
+                        imagensAtuais.addAll(novasImagens);
+                    }
+
+                    local.setImagens(imagensAtuais);
+                    return ResponseEntity.ok(repository.save(local));
+                })
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @Operation(
+            summary = "Listar imagens do local",
+            description = "Retorna apenas as URLs das imagens associadas ao local."
+    )
+    @GetMapping("/{id}/imagens")
+    public ResponseEntity<List<String>> listarImagens(@PathVariable Long id) {
+
+        Optional<Local> optLocal = repository.findById(id);
+
+        if (optLocal.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Local local = optLocal.get();
+        List<String> imagens = local.getImagens();
+
+        if (imagens == null || imagens.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.ok(imagens);
+    }
+
+
+
 }
