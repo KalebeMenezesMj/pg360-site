@@ -1,4 +1,5 @@
 import {Link} from 'react-router-dom';
+import { FaUserCircle } from "react-icons/fa";
 
 function Navbar(){
     return(
@@ -31,7 +32,7 @@ function Navbar(){
       </div>
 
       <div className="flex items-center space-x-4">
-        <span className="text-white text-3xl">👤</span> 
+        <FaUserCircle className="text-white text-3xl"/>
         
         <button className="bg-[#FFA303] text-white px-5 py-2 rounded-md font-semibold transition delay-150 duration-300 ease-in-out hover:bg-[#FFB703]">
           Entrar
