@@ -36,7 +36,8 @@ function Footer() {
           <h4 className="text-lg font-semibold text-white mb-4">Explorar</h4>
           <ul className="space-y-2">
             <li><a href="eventos" className="text-sm hover:text-white hover:underline transition-colors">Eventos</a></li>
-            <li><a href="#" className="text-sm hover:text-white hover:underline transition-colors">Atrações & Passeios</a></li>
+            <li><a href="atracoes" className="text-sm hover:text-white hover:underline transition-colors">Atrações & Passeios</a></li>
+            <li><a href="agendacultural" className="text-sm hover:text-white hover:underline transition-colors">Agenda Cultural</a></li>
             <li><a href="#" className="text-sm hover:text-white hover:underline transition-colors">Serviços</a></li>
           </ul>
         </div>
