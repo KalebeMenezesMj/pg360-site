@@ -1,5 +1,4 @@
-/** biome-ignore-all lint/correctness/useUniqueElementIds: <explanation> */
-/** biome-ignore-all lint/a11y/useButtonType: <explanation> */
+
 import React, { useState, useEffect } from "react";
 import { useForm } from 'react-hook-form';
 

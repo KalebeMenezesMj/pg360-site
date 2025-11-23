@@ -1,6 +1,7 @@
 import {Link} from 'react-router-dom';
 import { FaUserCircle } from "react-icons/fa";
 
+
 function Navbar(){
     return(
         <nav className="bg-[#1D91CE] p-4 flex shadow-lg w-full items-center relative">
@@ -34,9 +35,9 @@ function Navbar(){
       <div className="flex items-center space-x-4">
         <FaUserCircle className="text-white text-3xl"/>
         
-        <button className="bg-[#FFA303] text-white px-5 py-2 rounded-md font-semibold transition delay-150 duration-300 ease-in-out hover:bg-[#FFB703]">
-          Entrar
-        </button>
+       
+        <Link to ="/entrar" className="bg-[#FFA303] text-white px-5 py-2 rounded-md font-semibold transition delay-150 duration-300 ease-in-out hover:bg-[#FFB703">Entrar</Link> 
+        
       </div>
 
       <div className="absolute bottom-2 left-0 right-0 h-1 bg-[#8ECAE6]"></div>

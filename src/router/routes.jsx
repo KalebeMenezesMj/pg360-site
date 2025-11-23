@@ -5,6 +5,7 @@ import Home from '../components/Home.jsx';
 import Eventos from '../components/Eventos.jsx';
 import AtracoesPasseios from '../components/AtracoesPasseios.jsx';
 import AgendaCultural from '../components/AgendaCultural.jsx';
+import LoginAdm from '../components/LoginAdm.jsx';
 
 function AppRouter(){
     return(
@@ -13,6 +14,7 @@ function AppRouter(){
                 <Route path='/eventos' element={<Eventos/>} />
                 <Route path='/atracoes' element={<AtracoesPasseios/>} />
                 <Route path='/agendacultural' element={<AgendaCultural/>} />
+                <Route path='/entrar' element={<LoginAdm/>} />
                 <Route path='/*' element={<h1> Página Não Encontrada </h1>} />
             </Routes>
     );
