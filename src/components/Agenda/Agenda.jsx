@@ -1,28 +1,66 @@
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import location from "../../assets/location.png";
 import arrow from "../../assets/arrow.png";
 
-export default function Agenda() {
+const API_EVENTOS = "http://localhost:8080/eventos";
 
-    const dias = [
-        {
-            data: "15/11/2025 - SEXTA FEIRA",
-            eventos: [
-                { hora: "18:00", titulo: "Título de Exemplo", descricao: "Texto Descritivo de Exemplo" },
-                { hora: "19:00", titulo: "Título de Exemplo", descricao: "Texto Descritivo de Exemplo" },
-                { hora: "20:00", titulo: "Título de Exemplo", descricao: "Texto Descritivo de Exemplo" },
-                { hora: "20:00", titulo: "Título de Exemplo", descricao: "Texto Descritivo de Exemplo" },
-            ]
-        },
-        {
-            data: "22/11/2025 - SÁBADO",
-            eventos: [
-                { hora: "14:30", titulo: "Título de Exemplo", descricao: "Texto Descritivo de Exemplo" },
-                { hora: "16:30", titulo: "Título de Exemplo", descricao: "Texto Descritivo de Exemplo" },
-                { hora: "17:00", titulo: "Título de Exemplo", descricao: "Texto Descritivo de Exemplo" },
-            ]
-        }
-    ];
+export default function Agenda() {
+    const [dias, setDias] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const fetchEventos = async () => {
+            try {
+                const response = await fetch(API_EVENTOS);
+                if (!response.ok) throw new Error("Erro ao buscar eventos");
+
+                const eventos = await response.json();
+
+                // Agrupar eventos por data (dtInicioEvento)
+                const mapaDias = {};
+
+                eventos.forEach(ev => {
+                    const data = new Date(ev.dtInicioEvento).toLocaleDateString("pt-BR");
+
+                    if (!mapaDias[data]) {
+                        mapaDias[data] = [];
+                    }
+
+                    mapaDias[data].push({
+                        hora: new Date(ev.dtInicioEvento).toLocaleTimeString("pt-BR", {
+                            hour: "2-digit",
+                            minute: "2-digit"
+                        }),
+                        titulo: ev.nmEvento,
+                        descricao: ev.dsEvento || "",
+                        cdEvento: ev.cdEvento
+                    });
+                });
+
+                // Converter em array no formato original da agenda
+                const diasFormatados = Object.entries(mapaDias).map(([data, eventos]) => ({
+                    data: `${data}`,
+                    eventos
+                }));
+
+                setDias(diasFormatados);
+            } catch (err) {
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchEventos();
+    }, []);
+
+    if (loading) return <p className="text-center py-10">Carregando agenda...</p>;
+    if (error) return <p className="text-center py-10 text-red-600">{error}</p>;
+
+    if (dias.length === 0)
+        return <p className="text-center py-10 text-gray-600">Nenhum evento encontrado.</p>;
 
     return (
         <div className="bg-gray-200 flex justify-center pt-6 pb-10 px-6">
@@ -38,6 +76,7 @@ export default function Agenda() {
                                 hora={evento.hora}
                                 titulo={evento.titulo}
                                 descricao={evento.descricao}
+                                id={evento.cdEvento}
                             />
                         ))}
 
@@ -52,9 +91,7 @@ export default function Agenda() {
     );
 }
 
-
-function AgendaCard({ hora, titulo, descricao }) {
-
+function AgendaCard({ hora, titulo, descricao, id }) {
     const navigate = useNavigate();
 
     return (
@@ -66,32 +103,24 @@ function AgendaCard({ hora, titulo, descricao }) {
 
                 <div>
                     <h3 className="font-bold">{titulo}</h3>
-                    <p className="text-sm text-gray-600">
-                        {descricao}
-                    </p>
+                    <p className="text-sm text-gray-600">{descricao}</p>
 
                     <div className="flex items-center mt-2">
                         <button
-                            onClick={() => navigate("/")}
-                            className="focus:outline-none cursor-pointer">
-                            <img
-                                src={location}
-                                alt="Localização"
-                                className="w-5 h-5"
-                            />
+                            onClick={() => navigate(`/evento/${id}`)}
+                            className="focus:outline-none cursor-pointer"
+                        >
+                            <img src={location} alt="Localização" className="w-5 h-5" />
                         </button>
                     </div>
                 </div>
             </div>
 
             <button
-                onClick={() => navigate("/")}
-                className="focus:outline-none cursor-pointer flex items-center justify-center">
-                <img
-                    src={arrow}
-                    alt="Abrir"
-                    className="w-6 h-6"
-                />
+                onClick={() => navigate(`/evento/${id}`)}
+                className="focus:outline-none cursor-pointer flex items-center justify-center"
+            >
+                <img src={arrow} alt="Abrir" className="w-6 h-6" />
             </button>
         </div>
     );
