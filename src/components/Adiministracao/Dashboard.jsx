@@ -1,83 +1,63 @@
-import { useState, useEffect } from "react";
-import Table from "../Table.jsx";
+// src/components/Adiministracao/Dashboard.jsx
+import React, { useState } from "react";
+import Sidebar from "../Sidebar";
+import DashboardHome from "./DashboardPages/DashboardHome";
 
-export default function Dashboard() {
-    const [selected, setSelected] = useState("eventos");
-    const [data, setData] = useState([]);
+// Importar páginas de Eventos
+import EventoCreatePage from "./DashboardPages/EventoCreatePage";
+import EventoListPage from "./DashboardPages/EventoListPage";
+import EventoEditPage from "./DashboardPages/EventoEditPage";
+import EventoDeletePage from "./DashboardPages/EventoDeletePage";
 
-    const endpoints = {
-        eventos: "http://localhost:8080/eventos",
-        locais: "http://localhost:8080/locais",
-        categorias: "http://localhost:8080/categorias",
-        usuarios: "http://localhost:8080/usuarios"
-    };
+// Importar páginas de Locais
+import LocalCreatePage from "./DashboardPages/LocalCreatePage";
+import LocalListPage from "./DashboardPages/LocalListPage";
+import LocalEditPage from "./DashboardPages/LocalEditPage";
+import LocalDeletePage from "./DashboardPages/LocalDeletePage";
 
-    const tableColumns = {
-        eventos: ["ID", "Nome", "Descrição", "Início", "Fim"],
-        locais: ["ID", "Nome", "Endereço", "Horário"],
-        categorias: ["ID", "Nome", "Descrição"],
-        usuarios: ["ID", "Nome", "Email"]
-    };
+// Importar páginas de Categorias
+import CategoriaCreatePage from "./DashboardPages/CategoriaCreatePage";
+import CategoriaListPage from "./DashboardPages/CategoriaListPage";
+import CategoriaEditPage from "./DashboardPages/CategoriaEditPage";
+import CategoriaDeletePage from "./DashboardPages/CategoriaDeletePage";
 
-    useEffect(() => {
-        fetch(endpoints[selected])
-            .then(res => res.json())
-            .then(dt => setData(dt))
-            .catch(err => console.error("Erro:", err));
-    }, [selected]);
+function Dashboard() {
+  const [pagina, setPagina] = useState("home");
 
-    const parsedData = {
-        eventos: data.map(e => ({
-            id: e.cdEvento,
-            nome: e.nmEvento,
-            desc: e.dsEvento,
-            inicio: e.dtInicioEvento,
-            fim: e.dtFimEvento
-        })),
-        locais: data.map(l => ({
-            id: l.cdLocal,
-            nome: l.nmLocal,
-            endereco: l.endereco,
-            hr: l.hrFuncionamento
-        })),
-        categorias: data.map(c => ({
-            id: c.cdCategoria,
-            nome: c.nmCategoria,
-            desc: c.dsCategoria
-        })),
-        usuarios: data.map(u => ({
-            id: u.cdUsuario,
-            nome: u.nmUsuario,
-            email: u.emailUsuario
-        }))
-    };
+  const renderConteudo = () => {
+    switch (pagina) {
+      case "home": return <DashboardHome onSelect={setPagina} />;
 
-    return (
-        <div className="flex h-screen bg-gray-100">
+      // Eventos
+      case "eventos-create": return <EventoCreatePage />;
+      case "eventos-list": return <EventoListPage />;
+      case "eventos-edit": return <EventoEditPage />;
+      case "eventos-delete": return <EventoDeletePage />;
 
-            <aside className="w-64 bg-gray-900 text-white p-6 flex flex-col gap-6">
-                <h1 className="text-2xl font-bold mb-4">Dashboard PG360</h1>
+      // Locais
+      case "locais-create": return <LocalCreatePage />;
+      case "locais-list": return <LocalListPage />;
+      case "locais-edit": return <LocalEditPage />;
+      case "locais-delete": return <LocalDeletePage />;
 
-                {["eventos", "locais", "categorias", "usuarios"].map(item => (
-                    <button
-                        key={item}
-                        onClick={() => setSelected(item)}
-                        className={`p-2 text-left rounded 
-                        ${selected === item ? "bg-blue-600" : "hover:bg-gray-700"}`}
-                    >
-                        {item.charAt(0).toUpperCase() + item.slice(1)}
-                    </button>
-                ))}
-            </aside>
+      // Categorias
+      case "categorias-create": return <CategoriaCreatePage />;
+      case "categorias-list": return <CategoriaListPage />;
+      case "categorias-edit": return <CategoriaEditPage />;
+      case "categorias-delete": return <CategoriaDeletePage />;
 
-            <main className="flex-1 p-6 overflow-y-auto">
-                <h2 className="text-3xl font-bold mb-4 capitalize">{selected}</h2>
+      default: return <DashboardHome onSelect={setPagina} />;
+    }
+  };
 
-                <Table 
-                    columns={tableColumns[selected]}
-                    data={parsedData[selected]}
-                />
-            </main>
-        </div>
-    );
+  return (
+    <div className="flex h-screen">
+      <Sidebar onSelect={setPagina} />
+      <main className="flex-grow p-6 bg-gray-100 overflow-y-auto">
+        {renderConteudo()}
+      </main>
+    </div>
+  );
 }
+
+export default Dashboard;
