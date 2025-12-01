@@ -1,4 +1,3 @@
-// src/components/Adiministracao/DashboardPages/DashboardHome.jsx
 import React from "react";
 
 function DashboardHome({ onSelect }) {

@@ -1,21 +1,18 @@
-// src/components/Adiministracao/Dashboard.jsx
 import React, { useState } from "react";
 import Sidebar from "../Sidebar";
 import DashboardHome from "./DashboardPages/DashboardHome";
 
-// Importar páginas de Eventos
 import EventoCreatePage from "./DashboardPages/EventoCreatePage";
 import EventoListPage from "./DashboardPages/EventoListPage";
 import EventoEditPage from "./DashboardPages/EventoEditPage";
 import EventoDeletePage from "./DashboardPages/EventoDeletePage";
 
-// Importar páginas de Locais
+
 import LocalCreatePage from "./DashboardPages/LocalCreatePage";
 import LocalListPage from "./DashboardPages/LocalListPage";
 import LocalEditPage from "./DashboardPages/LocalEditPage";
 import LocalDeletePage from "./DashboardPages/LocalDeletePage";
 
-// Importar páginas de Categorias
 import CategoriaCreatePage from "./DashboardPages/CategoriaCreatePage";
 import CategoriaListPage from "./DashboardPages/CategoriaListPage";
 import CategoriaEditPage from "./DashboardPages/CategoriaEditPage";
@@ -34,13 +31,11 @@ function Dashboard() {
       case "eventos-edit": return <EventoEditPage />;
       case "eventos-delete": return <EventoDeletePage />;
 
-      // Locais
       case "locais-create": return <LocalCreatePage />;
       case "locais-list": return <LocalListPage />;
       case "locais-edit": return <LocalEditPage />;
       case "locais-delete": return <LocalDeletePage />;
 
-      // Categorias
       case "categorias-create": return <CategoriaCreatePage />;
       case "categorias-list": return <CategoriaListPage />;
       case "categorias-edit": return <CategoriaEditPage />;

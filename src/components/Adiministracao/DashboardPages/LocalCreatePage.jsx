@@ -1,4 +1,3 @@
-// src/components/Adiministracao/DashboardPages/LocalCreatePage.jsx
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 

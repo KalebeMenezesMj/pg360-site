@@ -1,4 +1,3 @@
-// src/components/Adiministracao/DashboardPages/LocalDeletePage.jsx
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -18,7 +17,6 @@ function LocalDeletePage() {
       setLocais(prev => prev.filter(l => l.cdLocal !== id));
     } catch (err) {
       if (err.response && err.response.status === 409) {
-        // Exemplo: backend retorna 409 Conflict quando o local está em uso
         alert("Este local não pode ser excluído porque está vinculado a um evento.");
       } else {
         alert("Erro ao excluir local. Verifique se ele está em uso.");

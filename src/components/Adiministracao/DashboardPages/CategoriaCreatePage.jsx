@@ -1,4 +1,3 @@
-// src/components/Adiministracao/DashboardPages/CategoriaCreatePage.jsx
 import React, { useState } from "react";
 import axios from "axios";
 

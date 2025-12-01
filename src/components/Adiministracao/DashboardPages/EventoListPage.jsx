@@ -1,4 +1,3 @@
-// src/components/Adiministracao/DashboardPages/EventoListPage.jsx
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 

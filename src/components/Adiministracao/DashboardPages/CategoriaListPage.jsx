@@ -1,4 +1,3 @@
-// src/components/Adiministracao/DashboardPages/CategoriaListPage.jsx
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
