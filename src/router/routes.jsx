@@ -6,8 +6,8 @@ import Eventos from '../components/Eventos/Eventos.jsx';
 import AtracoesPasseios from '../components/Atracoes&Passeios/AtracoesPasseios.jsx';
 import AgendaCultural from '../components/Agenda/AgendaCultural.jsx';
 import Agenda from '../components/Agenda/Agenda.jsx';
-import LoginAdm from '../components/Adiministracao/LoginAdm.jsx';
-import Dashboard from '../components/Adiministracao/Dashboard.jsx';
+import LoginAdm from '../components/Administracao/LoginAdm.jsx';
+import Dashboard from '../components/Administracao/Dashboard.jsx';
 
 function AppRouter(){
     return(
