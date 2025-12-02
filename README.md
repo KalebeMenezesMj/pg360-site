@@ -145,6 +145,6 @@ Este projeto é um esforço conjunto da nossa equipe:
 | **Kalebe Mezenes** | [Desenvolvedor Back End e DBA ] | [@KalebeMenezesMj](https://github.com/KalebeMenezesMj) |
 | **Gustavo Lemos** | [Desenvolvedor Full Stack e Analista de QA] | [@GustavoInCode24](https://github.com/GustavoInCode24) |
 | **Gabriel Nobre** | [Analista de QA] | [@Gabriel-Nobre](https://github.com/Gabriel-Nobre) |
-| **Nicolas Ferreira** | [Desenvolvedor Front End e Desing] | [@ncdsrNicolas](https://github.com/ncdsrNicolas) |
+| **Nicolas Rodrigues** | [Desenvolvedor Front End e Desing] | [@ncdsrNicolas](https://github.com/ncdsrNicolas) |
 | **Lucas Henrique** | [Desnvolvedor Full Stack e Desing] | [@yonevxs](https://github.com/yonevxs)  |
 
