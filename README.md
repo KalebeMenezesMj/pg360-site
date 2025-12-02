@@ -1,9 +1,6 @@
 # 🗺️ PG360: Mapeamento Turístico de Praia Grande
-
-### PG360: Uma plataforma web Full-Stack moderna e eficiente, desenvolvida para mapear, catalogar e apresentar os pontos turísticos da cidade de Praia Grande, proporcionando uma experiência interativa e informativa.
-
-Este projeto foca na performance e na arquitetura modular, separando a lógica de negócios (API em Spring Boot) da interface do usuário (React).
-
+## PG360 é uma Plataforma Web Full-Stack desenvolvida com o objetivo primário de transformar a experiência turística na cidade de Praia Grande (SP).
+### Este sistema visa solucionar o desafio de centralizar e apresentar informações geoespaciais e logísticas sobre os pontos de interesse da cidade.
 ---
 
 ## ✨ Funcionalidades em Destaque
